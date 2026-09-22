@@ -37,7 +37,7 @@ while principal > 0:
     total_paid = total_paid + current_payment
 
     # Print payment breakdown row by row
-    print(month, round(total_paid, ndigits=2), round(principal, ndigits=2))
+    print(f'{month:<10d} {round(total_paid, ndigits=2):<10.2f} {round(principal, ndigits=2):<10.2f}')
 
-print('Total_paid', round(total_paid, ndigits=2))
-print("Months", month)
+print(f'Total_paid {round(total_paid, ndigits=2):<10.2f}')
+print(f'Months     {month:<10d}')
