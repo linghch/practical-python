@@ -2,14 +2,27 @@
 # author linghch
 # Exercise 1.27
 
-total_cost = 0.0
+import sys
+import csv
 
-with open('Data/portfolio.csv') as f:
-    next(f) # skip the header
-    for line in f:
-        stock = line.strip().split(',') 
-        shares = int(stock[1])
-        price = float(stock[2])
-        total_cost += shares * price # Accumulate cost of each company's shares
+def portfolio_cost(filename):
+    total_cost = 0.0
+    with open(filename) as f:
+        rows = csv.reader(f)
+        next(rows) # skip the header row
+        for row in rows:
+            try: # catch conversion error
+                shares = int(row[1])
+                price = float(row[2])
+            except ValueError:
+                print(f"Error: {row}")
+            total_cost += shares * price # Add cost of the current holding
+    return total_cost
 
-print(f'Total cost {round(total_cost, ndigits=2)}')
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = 'Data/portfolio.csv'
+
+cost = portfolio_cost(filename)
+print('Total cost:', cost)
